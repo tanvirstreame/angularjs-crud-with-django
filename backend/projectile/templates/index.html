@@ -13,49 +13,26 @@
         <form ng-submit="submit()">
           <label>First Name:</label>
           <div>
-            <input type="text" ng-model="first_name">
+            <input type="text" ng-model="firstname">
           </div>
           <label>Last Name:</label>
           <div>
-            <input type="text" ng-model="last_name">
+            <input type="text" ng-model="lastname">
           </div>
           <label>Age:</label>
           <div>
             <input type="number" ng-model="age">
-          </div>
-          <label>Email:</label>
-          <div>
-            <input type="text" ng-model="email">
-          </div>
-          <label>Address:</label>
-          <div>
-            <input type="text" ng-model="address">
           </div>
 
           <input type="submit"/>
         </form>
       </div>
 
-      <div ng-controller="employeeListCtrl">
+      <div ng-controleler="employeeListCtrl">
         <table border="1">
-          <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Age</td>
-            <td>Employee</td>
-          </tr>
           <tr ng-repeat="empolyee in employeeList">
             <td>
-                {{ empolyee.first_name }}
-            </td>
-            <td>
-                {{ empolyee.last_name }}
-            </td>
-            <td>
-                {{ empolyee.age }}
-            </td>
-            <td>
-                {{ empolyee.email }}
+                {{empolyee.first_name}}
             </td>
         </tr>
         </table>
