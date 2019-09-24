@@ -12,38 +12,38 @@
   </head>
   <body>
     <div ng-app="root">
-      <div class="ml-5 mr-5">
+      <div class="mt-4 ml-5 mr-5">
         <div class="float-left">
           <div  ng-controller="employeeAddCtrl">
             <form ng-submit="submit()">
               <label>First Name:</label>
               <div>
-                <input type="text" ng-model="first_name">
+                <input type="text" class="form-control" ng-model="first_name">
               </div>
               <label>Last Name:</label>
               <div>
-                <input type="text" ng-model="last_name">
+                <input type="text" class="form-control" ng-model="last_name">
               </div>
               <label>Age:</label>
               <div>
-                <input type="number" ng-model="age">
+                <input type="number" class="form-control" ng-model="age">
               </div>
               <label>Email:</label>
               <div>
-                <input type="text" ng-model="email">
+                <input type="text" class="form-control" ng-model="email">
               </div>
               <label>Address:</label>
               <div>
-                <input type="text" ng-model="address">
+                <input type="text" class="form-control" ng-model="address">
               </div>
               <input class="mt-2 btn btn-primary" type="submit"/>
             </form>
           </div>
         </div>
 
-        <div class="float-right mb-4">
+        <div class="mt-4  float-right mb-4">
           <div ng-controller="employeeListCtrl">
-            <table border="1">
+            <table class="table table-bordered table-striped">
               <tr>
                 <td>Id</td>
                 <td>First Name</td>
