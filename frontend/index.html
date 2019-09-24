@@ -39,12 +39,16 @@
       <div ng-controller="employeeListCtrl">
         <table border="1">
           <tr>
+            <td>Id</td>
             <td>First Name</td>
             <td>Last Name</td>
             <td>Age</td>
-            <td>Employee</td>
+            <td>Email</td>
           </tr>
           <tr ng-repeat="empolyee in employeeList">
+              <td>
+                  {{ empolyee.id }}
+              </td>
             <td>
                 {{ empolyee.first_name }}
             </td>
