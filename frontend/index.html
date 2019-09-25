@@ -15,10 +15,12 @@
       <div class="mt-4 ml-5 mr-5">
         <div class="float-left">
           <div  ng-controller="employeeAddCtrl">
-            <form ng-submit="submit()">
+            <h1>Add Employee</h1>
+            <form name="form" ng-submit="submit()">
               <label>First Name:</label>
               <div>
-                <input type="text" class="form-control" ng-model="first_name">
+                <input type="text" class="form-control" name="first_name" ng-model="first_name" required>
+                <span >First_name is required{{form.first_name.$valid}}</span>
               </div>
               <label>Last Name:</label>
               <div>
@@ -50,6 +52,8 @@
                 <td>Last Name</td>
                 <td>Age</td>
                 <td>Email</td>
+                <td>Edit</td>
+                <td>Delete</td>
               </tr>
               <tr ng-repeat="empolyee in employeeList">
                   <td>
@@ -66,6 +70,12 @@
                 </td>
                 <td>
                     {{ empolyee.email }}
+                </td>
+                <td>
+                  <button class="btn btn-primary">Edit</button>
+                </td>
+                <td>
+                  <button ng-click="delete(empolyee.id)" class="btn btn-danger">Delete</button>
                 </td>
               </tr>
             </table>

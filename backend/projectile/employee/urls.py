@@ -19,4 +19,5 @@ from employee import views
 
 urlpatterns = [
     path('employee-list/', views.EmployeeList.as_view()),
+    path('employee-detail/<int:pk>/', views.EmployeeDetail.as_view()),
 ]
