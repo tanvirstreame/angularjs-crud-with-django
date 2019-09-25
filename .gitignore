@@ -9,7 +9,6 @@ assets/build.js
 assets/main.js
 node_modules/
 bower_components/
-assets/
 invoices/*
 client/tmp
 media
