@@ -15,7 +15,6 @@ app.service("passDataService", function($rootScope){
 
 app.service("editDataService", function($rootScope){
   this.tempData = {};
-  this.mode= "";
 
   this.setData = function (data) {
     this.tempData = data;
@@ -60,7 +59,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       const editId = editDataService.getData().id;
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
-        console.log(response);
+        editDataService.setData({...data, id: editId});
       });
     }
   }
@@ -72,6 +71,17 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
     prevData.push(passDataService.getData());
     $scope.employeeList = prevData;
   })
+
+  $rootScope.$on("editDataEvent",function() {
+    const prevData = $scope.employeeList;
+    const editId = editDataService.getData().id;
+    const index = $scope.employeeList.findIndex(x => x.id === editId);
+    prevData[index] = editDataService.getData();
+    $scope.employeeList = prevData;
+
+  })
+
+
   $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
   .then(function(response) {
       $scope.employeeList = response.data;
