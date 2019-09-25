@@ -72,7 +72,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
 
     let valid = true;
     angular.forEach(data, function (value, key) {
-      if(data[key] === "" || data[key] === undefined) {
+      if(data[key] === "" || data[key] === null || data[key] === undefined) {
         formError[key] = "This field can not be blank";
         valid = false
       }
