@@ -37,25 +37,44 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
     $scope.buttonText = "Edit";
     $scope.modeText = "Edit";
   })
+
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
   $scope.submit = function () {
-    var data = {
+    let data = {
       first_name : $scope.first_name,
       last_name: $scope.last_name,
       address: $scope.address,
       age: $scope.age,
       email: $scope.email
     };
+    let formError = {
+      first_name : "",
+      last_name: "",
+      address: "",
+      age: "",
+      email:""
 
-    if($scope.modeText==="Add") {
+    }
+    let valid = true;
+    angular.forEach(data, function (value, key) {
+      if(data[key] === "" || data[key] === undefined) {
+        formError[key] = "This field can not be blank";
+        valid = false
+      }
+
+    });
+
+    $scope.formError = formError;
+
+    if($scope.modeText === "Add" && valid) {
       $http.post("http://127.0.0.1:8000/api/v1/employee-list/", data)
       .then(function(response) {
         passDataService.setData(response.data);
       });
     }
 
-    if($scope.modeText==="Edit") {
+    if($scope.modeText=== "Edit" && valid) {
       const editId = editDataService.getData().id;
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
