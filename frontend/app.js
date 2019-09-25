@@ -1,4 +1,17 @@
-var app = angular.module('root', []);
+var app = angular.module('root', ["ngRoute"]);
+
+app.config(["$routeProvider", function($routeProvider){
+  $routeProvider
+  .when('/filter', {
+    templateUrl: "views/filter.html"
+  }).when("/home",{
+    templateUrl: "views/home.html"
+
+  }).otherwise({
+    redirectTo: '/home'
+  })
+
+}])
 
 app.service("passDataService", function($rootScope){
   this.tempData = "";
