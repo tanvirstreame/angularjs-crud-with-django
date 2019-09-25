@@ -61,21 +61,21 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       age: $scope.age,
       email: $scope.email
     };
+
     let formError = {
       first_name : "",
       last_name: "",
       address: "",
       age: "",
       email:""
-
     }
+
     let valid = true;
     angular.forEach(data, function (value, key) {
       if(data[key] === "" || data[key] === undefined) {
         formError[key] = "This field can not be blank";
         valid = false
       }
-
     });
 
     $scope.formError = formError;
@@ -84,6 +84,12 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       $http.post("http://127.0.0.1:8000/api/v1/employee-list/", data)
       .then(function(response) {
         passDataService.setData(response.data);
+        $scope.first_name = "";
+        $scope.last_name = "";
+        $scope.address = "";
+        $scope.age = "";
+        $scope.email = "";
+        alert("Saved successfully");
       });
     }
 
@@ -92,6 +98,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
         editDataService.setData({...data, id: editId});
+        alert("Updated successfully");
       });
     }
   }
@@ -130,6 +137,12 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
     const obj = $scope.employeeList.find(x => x.id === $id);
     editDataService.setData(obj);
   }
+});
 
+app.controller('filterCTRL', function($scope, $http) {
+  $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
+  .then(function(response) {
+      $scope.employeeList = response.data;
+  });
 
 });

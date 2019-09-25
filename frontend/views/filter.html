@@ -1,3 +1,31 @@
-<div>
-  rewrwrew
+<div class="mr-5 ml-5" ng-controller="filterCTRL">
+  <div>
+    <input class="form-control mt-2 mb-2" ng-model="search" type="text"/>
+  </div>
+  <table class="table table-bordered table-striped">
+    <tr>
+      <td>Id</td>
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Age</td>
+      <td>Email</td>
+    </tr>
+    <tr ng-repeat="empolyee in employeeList | filter:search">
+      <td>
+        {{ empolyee.id }}
+      </td>
+      <td>
+        {{ empolyee.first_name }}
+      </td>
+      <td>
+        {{ empolyee.last_name }}
+      </td>
+      <td>
+        {{ empolyee.age }}
+      </td>
+      <td>
+        {{ empolyee.email }}
+      </td>
+    </tr>
+  </table>
 </div>

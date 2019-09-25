@@ -1,6 +1,6 @@
 <div>
     <div class="mt-4 ml-5 mr-5">
-      <div class="float-left">
+      <div class="float-left home-component">
         <div  ng-controller="employeeAddCtrl">
           <h1>{{modeText}} Employee</h1>
           <form name="form" ng-submit="submit()">
@@ -47,9 +47,9 @@
               <td>Delete</td>
             </tr>
             <tr ng-repeat="empolyee in employeeList">
-                <td>
-                    {{ empolyee.id }}
-                </td>
+              <td>
+                {{ empolyee.id }}
+              </td>
               <td>
                   {{ empolyee.first_name }}
               </td>
