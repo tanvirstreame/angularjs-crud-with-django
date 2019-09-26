@@ -137,10 +137,26 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
   });
 
   $scope.delete = function($id) {
-    $http.delete('http://127.0.0.1:8000/api/v1/employee-detail/'+$id+'/').then(function (response) {
-      const afterDeletedList = $scope.employeeList.filter(x => x.id != $id);
-      $scope.employeeList = afterDeletedList;
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $http.delete('http://127.0.0.1:8000/api/v1/employee-detail/'+$id+'/').then(function (response) {
+        const afterDeletedList = $scope.employeeList.filter(x => x.id != $id);
+        $scope.employeeList = afterDeletedList;
       })
+        swal("Deleted Successfully", {
+          icon: "success",
+        });
+      } else {
+        swal("Not deleted");
+      }
+    });
+
   }
 
   $scope.edit = function($id) {
