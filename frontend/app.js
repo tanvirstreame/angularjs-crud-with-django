@@ -6,7 +6,6 @@ app.config(["$routeProvider", function($routeProvider){
     templateUrl: "views/filter.html"
   }).when("/home",{
     templateUrl: "views/home.html"
-
   }).otherwise({
     redirectTo: '/home'
   })
@@ -54,16 +53,23 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
 
+  let formError = {
+    first_name : "",
+    last_name: "",
+    address: "",
+    age: "",
+    email:""
+  }
+
   $scope.backToAdd = function() {
-    $scope.first_name = "";
-    $scope.last_name = "";
-    $scope.address = "";
-    $scope.age = "";
-    $scope.email = "";
+    ["first_name", "last_name", "address", "age", "email"].forEach(key => {
+      $scope[key] = "";
+      formError[key] = "";
+    });
+
     $scope.buttonText = "Add";
     $scope.modeText = "Add";
   }
-
 
   $scope.submit = function () {
     let data = {
@@ -73,14 +79,6 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       age: $scope.age,
       email: $scope.email
     };
-
-    let formError = {
-      first_name : "",
-      last_name: "",
-      address: "",
-      age: "",
-      email:""
-    }
 
     let valid = true;
     angular.forEach(data, function (value, key) {
@@ -96,11 +94,9 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       $http.post("http://127.0.0.1:8000/api/v1/employee-list/", data)
       .then(function(response) {
         passDataService.setData(response.data);
-        $scope.first_name = "";
-        $scope.last_name = "";
-        $scope.address = "";
-        $scope.age = "";
-        $scope.email = "";
+        ["first_name", "last_name", "address", "age", "email"].forEach(key => {
+          $scope[key] = "";
+        });
         alert("Saved successfully");
       });
     }
@@ -129,7 +125,6 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
     const index = $scope.employeeList.findIndex(x => x.id === editId);
     prevData[index] = editDataService.getData();
     $scope.employeeList = prevData;
-
   })
 
   $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
