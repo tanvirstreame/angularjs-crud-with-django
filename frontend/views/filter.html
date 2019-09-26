@@ -3,7 +3,7 @@
     <i class="fa fa-search search-icon" aria-hidden="true"></i>
     <input class="form-control mt-2 mb-2 search-box" ng-model="search" type="text"/>
   </div>
-  <table class="table table-bordered table-striped">
+  <table ng-Show="employeeList.length" class="table table-bordered table-striped">
     <tr>
       <td>Id</td>
       <td>First Name</td>
@@ -29,4 +29,5 @@
       </td>
     </tr>
   </table>
+  <h1 ng-Show="!employeeList.length" class="text-center mt-5">No data found</h1>
 </div>

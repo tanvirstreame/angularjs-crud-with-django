@@ -13,7 +13,7 @@
 
     <div class="mt-4 float-right mb-4 employee-detail-table">
       <div ng-controller="employeeListCtrl">
-        <table class="table table-bordered table-striped">
+        <table ng-Show="employeeList.length" class="table table-bordered table-striped">
           <tr>
             <td>Id</td>
             <td>First Name</td>
@@ -47,6 +47,7 @@
             </td>
           </tr>
         </table>
+        <h1 ng-Show="!employeeList.length" class="text-center">No data found</h1>
       </div>
     </div>
   </div>

@@ -2,7 +2,6 @@
   <label>First Name:</label>
   <div>
     <input type="text" class="form-control" name="first_name" ng-model="first_name">
-    <!-- <span class="text-danger"> {{formError.first_name}}</span> -->
     <span class="text-danger"> {{(!form.first_name.$viewValue.length) ? formError.first_name : "" }} </span>
   </div>
   <label class="mt-1">Last Name:</label>
