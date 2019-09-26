@@ -120,7 +120,6 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
 
   })
 
-
   $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
   .then(function(response) {
       $scope.employeeList = response.data;
