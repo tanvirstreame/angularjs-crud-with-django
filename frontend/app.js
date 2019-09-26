@@ -97,7 +97,9 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
         ["first_name", "last_name", "address", "age", "email"].forEach(key => {
           $scope[key] = "";
         });
-        alert("Saved successfully");
+        swal("Saved Successfully!", "", "success", {
+          button: "ok",
+        });
       });
     }
 
@@ -106,7 +108,9 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
         editDataService.setData({...data, id: editId});
-        alert("Updated successfully");
+        swal("Updated Successfully!", "", "success", {
+          button: "ok",
+        });
       });
     }
   }
