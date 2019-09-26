@@ -1,0 +1,30 @@
+<form name="form" ng-submit="submit()">
+  <label>First Name:</label>
+  <div>
+    <input type="text" class="form-control" name="first_name" ng-model="first_name">
+    <!-- <span class="text-danger"> {{formError.first_name}}</span> -->
+    <span class="text-danger"> {{(!form.first_name.$viewValue.length) ? formError.first_name : "" }} </span>
+  </div>
+  <label>Last Name:</label>
+  <div>
+    <input type="text" class="form-control" name="last_name" ng-model="last_name">
+    <span class="text-danger"> {{(!form.last_name.$viewValue.length) ? formError.last_name : ""}} </span>
+  </div>
+  <label>Age:</label>
+  <div>
+    <input type="number" class="form-control" name="age" ng-model="age">
+    <span class="text-danger"> {{(!form.age.$viewValue.length) ? formError.age : ""}} </span>
+  </div>
+  <label>Email:</label>
+  <div>
+    <input type="email" name="email" class="form-control" name="email" ng-model="email">
+    <span class="text-danger"> {{(!form.email.$viewValue.length) ? formError.email : ""}} </span>
+    <span class="text-danger">{{!form.email.$valid ? "Invalid email":""}} </span>
+  </div>
+  <label>Address:</label>
+  <div>
+    <input type="text" class="form-control" name="address" ng-model="address">
+    <span class="text-danger"> {{(!form.address.$viewValue.length) ? formError.address : ""}} </span>
+  </div>
+  <input class="mt-2 btn btn-block btn-primary" value={{buttonText}} type="submit"/>
+</form>

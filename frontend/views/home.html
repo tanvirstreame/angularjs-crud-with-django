@@ -1,78 +1,49 @@
 <div>
-    <div class="mt-4 ml-5 mr-5">
-      <div class="float-left home-component">
-        <div  ng-controller="employeeAddCtrl">
-          <h1>{{modeText}} Employee</h1>
-          <form name="form" ng-submit="submit()">
-            <label>First Name:</label>
-            <div>
-              <input type="text" class="form-control" name="first_name" ng-model="first_name">
-              <!-- <span class="text-danger"> {{formError.first_name}}</span> -->
-              <span class="text-danger"> {{(!form.first_name.$viewValue.length) ? formError.first_name : "" }} </span>
-            </div>
-            <label>Last Name:</label>
-            <div>
-              <input type="text" class="form-control" name="last_name" ng-model="last_name">
-              <span class="text-danger"> {{(!form.last_name.$viewValue.length) ? formError.last_name : ""}} </span>
-            </div>
-            <label>Age:</label>
-            <div>
-              <input type="number" class="form-control" name="age" ng-model="age">
-              <span class="text-danger"> {{(!form.age.$viewValue.length) ? formError.age : ""}} </span>
-            </div>
-            <label>Email:</label>
-            <div>
-              <input type="email" name="email" class="form-control" name="email" ng-model="email">
-              <span class="text-danger"> {{(!form.email.$viewValue.length) ? formError.email : ""}} </span>
-              <span class="text-danger">{{!form.email.$valid ? "Invalid email":""}} </span>
-            </div>
-            <label>Address:</label>
-            <div>
-              <input type="text" class="form-control" name="address" ng-model="address">
-              <span class="text-danger"> {{(!form.address.$viewValue.length) ? formError.address : ""}} </span>
-            </div>
-            <input class="mt-2 btn btn-block btn-primary" value={{buttonText}} type="submit"/>
-          </form>
-        </div>
+  <div class="mt-4 ml-5 mr-5">
+    <div class="float-left home-component">
+      <div  ng-controller="employeeAddCtrl">
+        <h1>{{modeText}} Employee</h1>
+        <employee-form></employee-form>
       </div>
+    </div>
 
-      <div class="mt-4  float-right mb-4">
-        <div ng-controller="employeeListCtrl">
-          <table class="table table-bordered table-striped">
-            <tr>
-              <td>Id</td>
-              <td>First Name</td>
-              <td>Last Name</td>
-              <td>Age</td>
-              <td>Email</td>
-              <td>Edit</td>
-              <td>Delete</td>
-            </tr>
-            <tr ng-repeat="empolyee in employeeList">
-              <td>
-                {{ empolyee.id }}
-              </td>
-              <td>
-                  {{ empolyee.first_name }}
-              </td>
-              <td>
-                  {{ empolyee.last_name }}
-              </td>
-              <td>
-                  {{ empolyee.age }}
-              </td>
-              <td>
-                  {{ empolyee.email }}
-              </td>
-              <td>
-                <button class="btn btn-primary" ng-click="edit(empolyee.id)">Edit</button>
-              </td>
-              <td>
-                <button ng-click="delete(empolyee.id)" class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-          </table>
-        </div>
+    <div class="mt-4  float-right mb-4">
+      <div ng-controller="employeeListCtrl">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>Id</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Age</td>
+            <td>Email</td>
+            <td>Edit</td>
+            <td>Delete</td>
+          </tr>
+          <tr ng-repeat="empolyee in employeeList">
+            <td>
+              {{ empolyee.id }}
+            </td>
+            <td>
+                {{ empolyee.first_name }}
+            </td>
+            <td>
+                {{ empolyee.last_name }}
+            </td>
+            <td>
+                {{ empolyee.age }}
+            </td>
+            <td>
+                {{ empolyee.email }}
+            </td>
+            <td>
+              <button class="btn btn-primary" ng-click="edit(empolyee.id)">Edit</button>
+            </td>
+            <td>
+              <button ng-click="delete(empolyee.id)" class="btn btn-danger">Delete</button>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
+</div>

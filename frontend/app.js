@@ -146,3 +146,11 @@ app.controller('filterCTRL', function($scope, $http) {
   });
 
 });
+
+
+app.directive('employeeForm', [function(){
+  return {
+    restrict: "E",
+    templateUrl: "views/forms/EmployeeDetailForm.html"
+  }
+}]);
