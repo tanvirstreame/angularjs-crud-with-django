@@ -53,6 +53,18 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
 
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
+
+  $scope.backToAdd = function() {
+    $scope.first_name = "";
+    $scope.last_name = "";
+    $scope.address = "";
+    $scope.age = "";
+    $scope.email = "";
+    $scope.buttonText = "Add";
+    $scope.modeText = "Add";
+  }
+
+
   $scope.submit = function () {
     let data = {
       first_name : $scope.first_name,
