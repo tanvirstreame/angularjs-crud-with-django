@@ -26,32 +26,34 @@ app.service("passDataService", function($rootScope){
 });
 
 app.service("editDataService", function($rootScope){
-  this.tempData = {};
+  this.tempFormData = {};
 
-  this.setData = function (data) {
-    this.tempData = data;
-    $rootScope.$emit("editDataEvent");
+  this.setFormData = function (data) {
+    this.tempFormData = data;
+    $rootScope.$emit("editFormDataEvent");
   }
 
-  this.getData = function () {
-    return this.tempData;
+  this.getFormData = function () {
+    return this.tempFormData;
   }
 });
 
 app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataService, editDataService) {
-  $rootScope.$on("editDataEvent", function(){
-    const editData = editDataService.getData();
+
+  $scope.buttonText = "Add";
+  $scope.modeText = "Add";
+
+  $rootScope.$on("editFormDataEvent", function(){
+    const editData = editDataService.getFormData();
     $scope.first_name = editData.first_name;
     $scope.last_name = editData.last_name;
     $scope.address = editData.address;
     $scope.age = editData.age;
     $scope.email = editData.email;
-    $scope.buttonText = "Edit";
+    $scope.buttonText = "Update";
     $scope.modeText = "Edit";
+    console.log("date ",$scope);
   })
-
-  $scope.buttonText = "Add";
-  $scope.modeText = "Add";
 
   let formError = {
     first_name : "",
@@ -104,10 +106,10 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
     }
 
     if($scope.modeText=== "Edit" && valid) {
-      const editId = editDataService.getData().id;
+      const editId = editDataService.getFormData().id;
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
-        editDataService.setData({...data, id: editId});
+        editDataService.setFormData({...data, id: editId});
         swal("Updated Successfully!", "", "success", {
           button: "ok",
         });
@@ -123,11 +125,11 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
     $scope.employeeList = prevData;
   })
 
-  $rootScope.$on("editDataEvent",function() {
+  $rootScope.$on("editFormDataEvent",function() {
     const prevData = $scope.employeeList;
-    const editId = editDataService.getData().id;
+    const editId = editDataService.getFormData().id;
     const index = $scope.employeeList.findIndex(x => x.id === editId);
-    prevData[index] = editDataService.getData();
+    prevData[index] = editDataService.getFormData();
     $scope.employeeList = prevData;
   })
 
@@ -161,7 +163,7 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
 
   $scope.edit = function($id) {
     const obj = $scope.employeeList.find(x => x.id === $id);
-    editDataService.setData(obj);
+    editDataService.setFormData(obj);
   }
 });
 
@@ -186,7 +188,7 @@ app.directive("doubleClick", ["editDataService",function(editDataService){
     restrict: "A",
     link: function(scope, element, attr) {
       element.on('dblclick', function (event) {
-        editDataService.setData(JSON.parse(attr.doubleClick));
+        editDataService.setFormData(JSON.parse(attr.doubleClick));
       })
     }
   }

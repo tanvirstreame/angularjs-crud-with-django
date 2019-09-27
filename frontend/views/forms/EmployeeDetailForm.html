@@ -26,5 +26,5 @@
     <span class="text-danger"> {{(!form.address.$viewValue.length) ? formError.address : ""}} </span>
   </div>
   <input class="mt-4 btn btn-block btn-success" value={{buttonText}} type="submit"/>
-  <input class="mt-4 btn btn-block btn-primary" ng-show="buttonText == 'Edit'" ng-click="backToAdd()" value="Back" type="button"/>
+  <input class="mt-4 btn btn-block btn-primary" ng-show="buttonText == 'Update'" ng-click="backToAdd()" value="Back" type="button"/>
 </form>
