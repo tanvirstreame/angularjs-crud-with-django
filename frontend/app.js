@@ -38,12 +38,13 @@ app.service("editDataService", function($rootScope){
   }
 });
 
-app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataService, editDataService) {
+app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataService, editDataService, $timeout) {
 
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
 
   $rootScope.$on("editFormDataEvent", function(){
+    $timeout(function(){
     const editData = editDataService.getFormData();
     $scope.first_name = editData.first_name;
     $scope.last_name = editData.last_name;
@@ -52,6 +53,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     $scope.email = editData.email;
     $scope.buttonText = "Update";
     $scope.modeText = "Edit";
+    }, 0);
   })
 
   let formError = {
