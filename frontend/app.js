@@ -12,15 +12,15 @@ app.config(["$routeProvider", function($routeProvider){
 
 }])
 
-app.service("passDataService", function($rootScope){
-  this.tempData = "";
+app.service("addDataService", function($rootScope){
+  this.tempData = {};
 
-  this.setData = function (data) {
+  this.setNewData = function (data) {
     this.tempData = data;
-    $rootScope.$emit("dataPassEvent");
+    $rootScope.$emit("addDataPassEvent");
   }
 
-  this.getData = function () {
+  this.getNewData = function () {
     return this.tempData;
   }
 });
@@ -38,7 +38,7 @@ app.service("editDataService", function($rootScope){
   }
 });
 
-app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataService, editDataService) {
+app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataService, editDataService) {
 
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
@@ -52,7 +52,6 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
     $scope.email = editData.email;
     $scope.buttonText = "Update";
     $scope.modeText = "Edit";
-    console.log("date ",$scope);
   })
 
   let formError = {
@@ -95,7 +94,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
     if($scope.modeText === "Add" && valid) {
       $http.post("http://127.0.0.1:8000/api/v1/employee-list/", data)
       .then(function(response) {
-        passDataService.setData(response.data);
+        addDataService.setNewData(response.data);
         ["first_name", "last_name", "address", "age", "email"].forEach(key => {
           $scope[key] = "";
         });
@@ -118,10 +117,10 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, passDataSe
   }
 });
 
-app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataService, editDataService) {
-  $rootScope.$on("dataPassEvent",function() {
+app.controller('employeeListCtrl', function($scope, $http, $rootScope, addDataService, editDataService) {
+  $rootScope.$on("addDataPassEvent",function() {
     var prevData = $scope.employeeList;
-    prevData.push(passDataService.getData());
+    prevData.push(addDataService.getNewData());
     $scope.employeeList = prevData;
   })
 
@@ -167,7 +166,7 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, passDataS
   }
 });
 
-app.controller('filterCTRL', function($scope, $http) {
+app.controller('filterCtrl', function($scope, $http) {
   $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
   .then(function(response) {
       $scope.employeeList = response.data;
