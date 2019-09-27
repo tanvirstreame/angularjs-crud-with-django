@@ -180,3 +180,14 @@ app.directive('employeeForm', [function(){
     templateUrl: "views/forms/EmployeeDetailForm.html"
   }
 }]);
+
+app.directive("doubleClick", ["editDataService",function(editDataService){
+  return {
+    restrict: "A",
+    link: function(scope, element, attr) {
+      element.on('dblclick', function (event) {
+        editDataService.setData(JSON.parse(attr.doubleClick));
+      })
+    }
+  }
+}]);

@@ -23,29 +23,31 @@
             <td>Edit</td>
             <td>Delete</td>
           </tr>
-          <tr ng-repeat="empolyee in employeeList">
-            <td>
-              {{ empolyee.id }}
-            </td>
-            <td>
-                {{ empolyee.first_name }}
-            </td>
-            <td>
-                {{ empolyee.last_name }}
-            </td>
-            <td>
-                {{ empolyee.age }}
-            </td>
-            <td>
-                {{ empolyee.email }}
-            </td>
-            <td>
-              <button class="btn btn-primary" ng-click="edit(empolyee.id)">Edit</button>
-            </td>
-            <td>
-              <button ng-click="delete(empolyee.id)" class="btn btn-danger">Delete</button>
-            </td>
-          </tr>
+          <tbody ng-repeat="employee in employeeList">
+            <tr double-click={{employee}}>
+              <td>
+                {{ employee.id }}
+              </td>
+              <td>
+                  {{ employee.first_name }}
+              </td>
+              <td>
+                  {{ employee.last_name }}
+              </td>
+              <td>
+                  {{ employee.age }}
+              </td>
+              <td>
+                  {{ employee.email }}
+              </td>
+              <td>
+                <button class="btn btn-primary" ng-click="edit(employee.id)">Edit</button>
+              </td>
+              <td>
+                <button ng-click="delete(employee.id)" class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+        </tbody>
         </table>
         <h1 ng-Show="!employeeList.length" class="text-center">No data found</h1>
       </div>
