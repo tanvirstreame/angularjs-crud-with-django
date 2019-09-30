@@ -40,6 +40,14 @@ app.service("editDataService", function($rootScope){
 
 app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataService, editDataService, $timeout) {
 
+  let formError = {
+    first_name : "",
+    last_name: "",
+    address: "",
+    age: "",
+    email:""
+  }
+
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
 
@@ -64,12 +72,16 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     }, 0);
   })
 
-  let formError = {
-    first_name : "",
-    last_name: "",
-    address: "",
-    age: "",
-    email:""
+  const validateEmployee = (data) => {
+    let valid = true;
+    angular.forEach(data, function (value, key) {
+      if(data[key] === "" || data[key] === null || data[key] === undefined) {
+        formError[key] = "This field can not be blank";
+        valid = false
+      }
+    });
+
+    return valid;
   }
 
   $scope.backToAdd = function() {
@@ -91,13 +103,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
       email: $scope.email
     };
 
-    let valid = true;
-    angular.forEach(data, function (value, key) {
-      if(data[key] === "" || data[key] === null || data[key] === undefined) {
-        formError[key] = "This field can not be blank";
-        valid = false
-      }
-    });
+    const valid = validateEmployee(data);
 
     $scope.formError = formError;
 
