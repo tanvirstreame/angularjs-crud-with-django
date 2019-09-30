@@ -120,6 +120,15 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     return valid;
   }
 
+  $scope.reset = function() {
+    $scope.formError = {};
+    $scope.first_name = "";
+    $scope.last_name = "";
+    $scope.address = "";
+    $scope.age = "";
+    $scope.email = "";
+  }
+
   $scope.onChange = function(data) {
     valid = validateEmployee(data);
   }
