@@ -88,13 +88,13 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     });
 
     if(data["age"] && data["age"] > 90 ) {
-      formError["age"] = "Age is too large";
+      formError["age"] = "Please enter a valid age, it is too large";
       valid = false;
     }
 
     ["first_name", "last_name"].forEach(tempKey => {
       if(data[tempKey] && !data[tempKey].match(/^[A-Za-z]+$/)) {
-        formError[tempKey] = "Only text is allowed";
+        formError[tempKey] = "Please enter valid "+tempKey.replace("_", " ");
         valid = false;
       }
       if(data[tempKey] && data[tempKey].length > 50) {
@@ -111,7 +111,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     });
 
     if(data["email"] && !data["email"].match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      formError["email"] = "Email is not valid"
+      formError["email"] = "Please enter a valid Email"
       valid = false;
     }
 
