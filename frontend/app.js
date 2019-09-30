@@ -70,6 +70,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
         $scope.buttonText = "Add";
         $scope.modeText = "Add";
       }
+      $scope.formError= {};
     }, 0);
   })
 
