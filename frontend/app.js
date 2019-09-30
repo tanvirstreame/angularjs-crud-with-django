@@ -47,6 +47,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     age: "",
     email:""
   }
+  let valid;
 
   $scope.buttonText = "Add";
   $scope.modeText = "Add";
@@ -79,9 +80,24 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
         formError[key] = "This field can not be blank";
         valid = false
       }
+
+      if(data[key] && String(data[key]).length > 0 ) {
+        formError[key] = "";
+      }
     });
 
+    if(data["age"] && data["age"] > 90 ) {
+      formError["age"] = "Age is too large";
+      valid = false
+    }
+
+    $scope.formError =  formError
+
     return valid;
+  }
+
+  $scope.onChange = function(data) {
+    valid = validateEmployee(data);
   }
 
   $scope.backToAdd = function() {
@@ -103,9 +119,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
       email: $scope.email
     };
 
-    const valid = validateEmployee(data);
-
-    $scope.formError = formError;
+    valid = validateEmployee(data);
 
     if($scope.modeText === "Add" && valid) {
       $http.post("http://127.0.0.1:8000/api/v1/employee-list/", data)

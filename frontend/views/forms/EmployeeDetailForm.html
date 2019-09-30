@@ -1,29 +1,29 @@
 <form name="form" ng-submit="submit()">
   <label>First Name:</label>
   <div>
-    <input type="text" class="form-control" name="first_name" ng-model="first_name">
-    <span class="text-danger"> {{(!form.first_name.$viewValue.length) ? formError.first_name : "" }} </span>
+    <input type="text" class="form-control" name="first_name" ng-change="onChange({first_name: first_name})" ng-model="first_name">
+    <span class="text-danger"> {{ formError.first_name }} </span>
   </div>
   <label class="mt-1">Last Name:</label>
   <div>
-    <input type="text" class="form-control" name="last_name" ng-model="last_name">
-    <span class="text-danger"> {{(!form.last_name.$viewValue.length) ? formError.last_name : ""}} </span>
+    <input type="text" class="form-control" name="last_name" ng-change="onChange({last_name: last_name})" ng-model="last_name">
+    <span class="text-danger"> {{ formError.last_name }} </span>
   </div>
   <label class="mt-1">Age:</label>
   <div>
-    <input type="number" class="form-control" name="age" ng-model="age">
-    <span class="text-danger"> {{(!form.age.$viewValue.length) ? formError.age : ""}} </span>
+    <input type="number" class="form-control" name="age" ng-change="onChange({age: age})" ng-model="age">
+    <span class="text-danger">{{ formError.age }} </span>
   </div>
   <label class="mt-1">Email:</label>
   <div>
-    <input type="email" name="email" class="form-control" name="email" ng-model="email">
-    <span class="text-danger"> {{(!form.email.$viewValue.length) ? formError.email : ""}} </span>
+    <input type="email" name="email" class="form-control" name="email" ng-change="onChange({email: email})" ng-model="email">
+    <span class="text-danger"> {{ formError.email }} </span>
     <span class="text-danger">{{!form.email.$valid ? "Invalid email":""}} </span>
   </div>
   <label class="mt-1">Address:</label>
   <div>
-    <input type="text" class="form-control" name="address" ng-model="address">
-    <span class="text-danger"> {{(!form.address.$viewValue.length) ? formError.address : ""}} </span>
+    <input type="text" class="form-control" name="address" ng-change="onChange({address: address})" ng-model="address">
+    <span class="text-danger"> {{ formError.address }} </span>
   </div>
   <input class="mt-4 btn btn-block btn-success" value={{buttonText}} type="submit"/>
   <input class="mt-4 btn btn-block btn-primary" ng-show="buttonText == 'Update'" ng-click="backToAdd()" value="Back" type="button"/>
