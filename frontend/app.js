@@ -78,7 +78,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
     angular.forEach(data, function (value, key) {
       if(data[key] === "" || data[key] === null || data[key] === undefined) {
         formError[key] = "This field can not be blank";
-        valid = false
+        valid = false;
       }
 
       if(data[key] && String(data[key]).length > 0 ) {
@@ -88,7 +88,30 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
 
     if(data["age"] && data["age"] > 90 ) {
       formError["age"] = "Age is too large";
-      valid = false
+      valid = false;
+    }
+
+    ["first_name", "last_name"].forEach(tempKey => {
+      if(data[tempKey] && !data[tempKey].match(/^[A-Za-z]+$/)) {
+        formError[tempKey] = "Only text is allowed";
+        valid = false;
+      }
+      if(data[tempKey] && data[tempKey].length > 50) {
+        formError[tempKey] = "Cannot exceed more than 50 character";
+        valid = false;
+      }
+    });
+
+    ["address", "email"].forEach(tempKey => {
+      if(data[tempKey] && String(data[tempKey]).length > 100) {
+        formError[tempKey] = "Cannot exceed more than 100 character";
+        valid = false;
+      }
+    });
+
+    if(data["email"] && !data["email"].match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      formError["email"] = "Email is not valid"
+      valid = false;
     }
 
     $scope.formError =  formError

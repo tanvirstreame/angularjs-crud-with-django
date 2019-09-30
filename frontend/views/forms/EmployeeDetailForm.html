@@ -16,9 +16,8 @@
   </div>
   <label class="mt-1">Email:</label>
   <div>
-    <input type="email" name="email" class="form-control" name="email" ng-change="onChange({email: email})" ng-model="email">
+    <input type="text" class="form-control" name="email" ng-change="onChange({email: email})" ng-model="email">
     <span class="text-danger"> {{ formError.email }} </span>
-    <span class="text-danger">{{!form.email.$valid ? "Invalid email":""}} </span>
   </div>
   <label class="mt-1">Address:</label>
   <div>
