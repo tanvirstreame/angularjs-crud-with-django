@@ -6,7 +6,7 @@ python manage.py runserver
 
 Front-end:
 
-npm install -g http-server
+npm init
 
 then,
 
