@@ -45,14 +45,22 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
 
   $rootScope.$on("editFormDataEvent", function(){
     $timeout(function(){
-    const editData = editDataService.getFormData();
-    $scope.first_name = editData.first_name;
-    $scope.last_name = editData.last_name;
-    $scope.address = editData.address;
-    $scope.age = editData.age;
-    $scope.email = editData.email;
-    $scope.buttonText = "Update";
-    $scope.modeText = "Edit";
+      const editData = editDataService.getFormData();
+      $scope.first_name = editData.first_name;
+      $scope.last_name = editData.last_name;
+      $scope.address = editData.address;
+      $scope.age = editData.age;
+      $scope.email = editData.email;
+
+      if(editData.mode === "Edit") {
+        $scope.buttonText = "Update";
+        $scope.modeText = "Edit";
+      }
+
+      if(editData.mode === "Add") {
+        $scope.buttonText = "Add";
+        $scope.modeText = "Add";
+      }
     }, 0);
   })
 
@@ -110,7 +118,7 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
       const editId = editDataService.getFormData().id;
       $http.patch("http://127.0.0.1:8000/api/v1/employee-detail/"+editId+"/", data)
       .then(function(response) {
-        editDataService.setFormData({...data, id: editId});
+        editDataService.setFormData({...data, id: editId, modeText: "Edit"});
         swal("Updated Successfully!", "", "success", {
           button: "ok",
         });
@@ -120,24 +128,28 @@ app.controller('employeeAddCtrl', function($scope, $rootScope, $http, addDataSer
 });
 
 app.controller('employeeListCtrl', function($scope, $http, $rootScope, addDataService, editDataService) {
-  $rootScope.$on("addDataPassEvent",function() {
-    var prevData = $scope.employeeList;
-    prevData.push(addDataService.getNewData());
-    $scope.employeeList = prevData;
-  })
-
-  $rootScope.$on("editFormDataEvent",function() {
-    const prevData = $scope.employeeList;
-    const editId = editDataService.getFormData().id;
-    const index = $scope.employeeList.findIndex(x => x.id === editId);
-    prevData[index] = editDataService.getFormData();
-    $scope.employeeList = prevData;
-  })
 
   $http.get("http://127.0.0.1:8000/api/v1/employee-list/")
   .then(function(response) {
       $scope.employeeList = response.data;
   });
+
+  $rootScope.$on("addDataPassEvent",function() {
+    //Adding table data
+    var prevData = $scope.employeeList;
+    prevData.push(addDataService.getNewData());
+    $scope.employeeList = prevData;
+  })
+
+  let editElementId;
+  $rootScope.$on("editFormDataEvent",function() {
+    //Updating table data
+    const prevData = $scope.employeeList;
+    editElementId = editDataService.getFormData().id;
+    const index = $scope.employeeList.findIndex(x => x.id === editElementId);
+    prevData[index] = editDataService.getFormData();
+    $scope.employeeList = prevData;
+  })
 
   $scope.delete = function($id) {
     swal({
@@ -151,6 +163,10 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, addDataSe
         $http.delete('http://127.0.0.1:8000/api/v1/employee-detail/'+$id+'/').then(function (response) {
         const afterDeletedList = $scope.employeeList.filter(x => x.id != $id);
         $scope.employeeList = afterDeletedList;
+
+        if(editElementId === $id) {
+          editDataService.setFormData({mode: "Add"});
+        }
       })
         swal("Deleted Successfully", {
           icon: "success",
@@ -163,7 +179,11 @@ app.controller('employeeListCtrl', function($scope, $http, $rootScope, addDataSe
   }
 
   $scope.edit = function($id) {
-    const obj = $scope.employeeList.find(x => x.id === $id);
+    let obj = $scope.employeeList.find(x => x.id === $id);
+     obj = {
+      ...obj,
+      mode: "Edit"
+    }
     editDataService.setFormData(obj);
   }
 });
@@ -189,7 +209,12 @@ app.directive("doubleClick", ["editDataService",function(editDataService){
     restrict: "A",
     link: function(scope, element, attr) {
       element.on('dblclick', function (event) {
-        editDataService.setFormData(JSON.parse(attr.doubleClick));
+        let rowData = JSON.parse(attr.doubleClick)
+        rowData = {
+          ...rowData,
+          mode: "Edit"
+        }
+        editDataService.setFormData(rowData);
       })
     }
   }
